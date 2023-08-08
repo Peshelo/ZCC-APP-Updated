@@ -62,7 +62,8 @@
                   <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{taberi.name}}</td>
                   <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{taberi.members.length}}</td>
                   <td class="relative whitespace-nowrap border-b flex flex-row gap-x-2 justify-center border-gray-200 py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8">
-                      <NuxtLink :to="'./'+taberi.id" class="bg-blue-500 text-white p-2 rounded" >View</NuxtLink>
+                      <NuxtLink :to="'./'+taberi.id" class="bg-blue-500 text-white p-2 rounded">View</NuxtLink>
+                      <NuxtLink :to="'./tabheri/'+taberi.id" class="bg-yellow-500 text-white p-2 rounded">View</NuxtLink>
                       <button @click="deleteTabheri(taberi.id)" class="bg-red-500 text-white p-1 px-2 rounded">Delete</button> 
                   </td>
                 </tr>
@@ -95,21 +96,15 @@
 
             <tr v-for="(member,index) in this.taberis.committeMembers" :key="index" class="border-t border-gray-300">
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ index + 1 }}</td>
-
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.firstname }}</td>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.lastname }}</td>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.gender }}</td>
               <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.dateOfBirth }}</td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.mobileNumber }}</td>
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.email}}</td>
-              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.committeMembers[index].position}}</td>
-
-              <!-- <td v-if="member.position !== null" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.position }}</td> -->
-              <!-- <td v-else class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td> -->
-              
+              <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.committeMembers[index].position}}</td>              
               <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500"><button @click="showDetails(member)" class="bg-blue-500 text-white p-2 rounded-md" >View</button> </td>
             </tr>
-
             <!-- More people... -->
           </tbody>
         </table>

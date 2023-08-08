@@ -11,13 +11,16 @@
         <form @submit.prevent="handleSubmit()">
         <div class=" border-t-2 pt-3 w-full flex flex-row justify-between flex-wrap">
                 <div class="flex flex-col w-1/2 mb-10 p-2">
-                    <label>Purpose<sup class="text-red-400">*</sup> <label v-if="this.errors.currency" class="text-xs text-red-400">required</label></label>
+                    <label>Purpose<sup v-if="this.errors.purposes" class="text-xs text-red-400">*required</sup></label>
                     <select v-model="purpose"  class="border rounded p-2 bg-slate-50 border-gray-400">
                         <option selected disabled>Select Purpose...</option>
                         <option v-for="(item,index) in this.purposes" :key="index" :value="item.id">{{ item.name }}</option>
                     </select>
                 </div>
-
+                <div class="flex flex-col w-1/2 mb-10 p-2">
+                    <label>Date<sup v-if="this.errors.date" class="text-xs text-red-400">*required</sup></label>
+                    <input v-model="date" type="date" name="field" id="" class="border rounded p-2 bg-slate-50 border-gray-400">
+                </div>
                 <div class="flex flex-col w-1/2 mb-10 p-2">
                     <label>Amount<label v-if="this.errors.prop1" class="text-xs text-red-400">required</label></label>
                     <input v-model="prop1" placeholder="USD" type="text" name="field" id="" class="border rounded p-2 bg-slate-50 border-gray-400">
@@ -30,6 +33,12 @@
                     <label>Amount<label v-if="this.errors.prop3" class="text-xs text-red-400">required</label></label>
                     <input v-model="prop3" type="text" placeholder="ZWL" name="field" id="" class="border rounded p-2 bg-slate-50 border-gray-400">
                 </div>
+                <div class="flex flex-col w-1/2 mb-10 p-2">
+                  </div>
+                <div class="flex flex-col w-1/2 mb-10 p-2">
+                  <label class="font-light text-sm text-red-500" v-if="this.errors.prop">* {{ this.errors.prop }}<label v-if="this.errors.currency" class="text-xs text-red-400">required</label></label>
+                </div>
+
                 <div class="border border-gray-300 rounded p-2 md:p-4 my-2 w-full flex flex-row items-center justify-between flex-wrap">
             <p>Click button to add collection</p>
             <button type="submit" class="bg-green-400 text-white rounded p-2 text-md">Submit</button>
@@ -53,6 +62,7 @@
               loading: false,
           tabheri: 1,
           purposes: '',
+          date:'',
           purpose:'',
           prop1: '',
           prop2: '',
@@ -70,11 +80,19 @@
         this.$refs.container.appendChild(button);
           },
             async handleSubmit(){
+              const scope = localStorage.getItem('scopeId')
             //  alert("Subo")
              this.errors = {};
-             if(!this.purposes){
-                 this.errors.purpose = "Purpose is required";
+             if(!this.purpose){
+                 this.errors.purposes = "Purpose is required";
              }
+             if(!this.date){
+                 this.errors.date = "Date is required";
+             }
+             if(!this.prop1 && !this.prop2 && !this.prop3){
+                 this.errors.prop = "Enter atleast one amount";
+             }
+
              if (Object.keys(this.errors).length === 0) {
               this.$nextTick(() => {
         this.$nuxt.$loading.start()
@@ -87,9 +105,8 @@
         try{
          await axios.post(URL,
          {
-    
-      taberi: {
-      id: localStorage.scopeId
+    taberi: {
+      id: scope
     },
     purpose: {
       id: this.purpose
@@ -99,9 +116,10 @@
       "ZAR": this.prop2,
       "ZWL": this.prop3
     }
+    // localDate: this.date
          },{
              headers: {'Content-Type': 'application/json',
-             // Authorization : 'Bear' + localStorage.token,
+             Authorization : 'Bearer ' + localStorage.token,
              'Access-Control-Allow-Origin': '*'
            },
              credentials: 'include',
@@ -128,9 +146,6 @@
         console.log("Fetching Purpose Data....");
         this.loading = true;
        const URL= "http://localhost:8080/purpose/all";
-        // const token = localStorage.token;
-        // console.log('Token is string: ' + isString(token))
-        // console.log(token);
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',

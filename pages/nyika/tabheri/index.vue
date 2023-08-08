@@ -1,6 +1,8 @@
 <template>
   <NuxtLayout name="default">
     <nyikaTable :id="this.scopeId"/>
+
+
   </NuxtLayout>
     
 </template>
@@ -11,8 +13,16 @@ export default {
   components: { nyikaTable },
   data(){
     return{
-      scopeId:''
+      scopeId:'',
+      collection:'',
+      loading:''
     }
+  },
+  methods:{
+   
+  },
+  mounted(){
+
   },
   beforeMount(){
   this.scopeId= localStorage.scopeId

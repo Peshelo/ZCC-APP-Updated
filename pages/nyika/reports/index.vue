@@ -6,15 +6,13 @@
     <h1 class="text-2xl font-bold mb-4">Collection Report</h1>
     <div class="flex flex-row justify-between items-center">
       <div class="p-2 w-fit flex flex-row gap-x-2 rounded-md border border-green-500">
-        <!-- <select @change="getCollection(tabheri,purpose)" v-model="tabheri" class="w-fit p-2 px-4 shadow-md rounded-md border">
-          <option v-for="(item,index) in tabheris.taberis" :key="index" :value="item">{{ item.name }}</option>
-        </select> -->
-        <select @change="getCollection(term,purpose)" v-model="term" class="w-fit p-2 px-4 bg-white rounded-md border">
+
+        <!-- <select @change="getCollection(term,purpose)" v-model="term" class="w-fit p-2 px-4 bg-white rounded-md border">
           <option v-for="(item,index) in terms" :key="index" :value="item.id">{{ item.name }}</option>
         </select>
         <select @change="getCollection(tabheri,purpose)" v-model="purpose" class="w-fit p-2 px-4 bg-white border rounded-md text-gray-400">
           <option v-for="(item,index) in purposes" :key="index" :value="item.id">{{ item.name }}</option>
-        </select>
+        </select> -->
       </div>
       <!-- <NuxtLink to="../financials/" class="w-fit p-2 px-4 rounded-md text-white bg-green-400">
           Add New
@@ -31,12 +29,11 @@
             <thead class="bg-white">
               <tr>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ID</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Tabheri</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Date</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Term</th>
                 <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Purpose</th>
-                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Received</th>
-                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actions</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Term</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Expected</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Received Amounts</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Percentage %</th>
 
               </tr>
             </thead>
@@ -47,15 +44,33 @@
 
               <tr v-for="(item,index) in collection" :key="index" class="border-t border-gray-300">
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ index + 1 }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.taberi.name }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.localDate }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.term.name }}</td>
                 <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.purpose.name }}</td>
-                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.receivedAmounts }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.term.name }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm text-gray-900 sm:pl-6 font-bold">{{ item.expectedAmounts.USD }}</td>
+                <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">
+
+            <thead v-if="Object.keys(item.receivedAmounts).length > 1" class="bg-white">
+              <tr>
+                <th scope="col" class="py-1 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">USD</th>
+                <th scope="col" class="py-1 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ZAR</th>
+                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">ZWL</th>
+              </tr>
+            </thead>
+            <tbody v-if="Object.keys(item.receivedAmounts).length > 1" class="bg-white">
+              <tr :key="index" class="border-t border-gray-300">
+                <td class="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.receivedAmounts.USD}}</td>
+                <td class="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.receivedAmounts.ZAR}}</td>
+                <td class="whitespace-nowrap py-1 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ item.receivedAmounts.ZWL}}</td>
+              </tr>
+
+              <!-- More people... -->
+            </tbody>
+            <td v-else>No collections yet!</td>
+                </td>
                 <!-- <td v-if="member.position !== null" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.position }}</td> -->
                 <!-- <td v-else class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td> -->
                 <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                  <button @click="push(item.taberi.id)">View</button>
+                  <button>50</button>
                 </td>
               </tr>
 
@@ -119,10 +134,11 @@ methods:{
   push(id){
       this.$router.push("./" + id);
     },
-  async getCollection(tabheriId,purposeId) {
+  async getCollection() {
       console.log("Fetching collection Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/financials/reports/nyika/1/term/"+tabheriId+"/purpose/"+purposeId;
+      const scope = localStorage.getItem('scopeId')
+     const URL= `http://localhost:8080/financials/reports/nyika/${scope}`;
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);
@@ -225,7 +241,7 @@ methods:{
     },
 },
 mounted(){
-  this.getCollection(1,1);
+  // this.getCollection(localStorage.getItem('scopeId'));
   // this.getTabheris();
   this.getTerm();
   this.getPurpose();

@@ -59,7 +59,7 @@
        <path d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
        <path d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
        <path d="M4 20l14 0"></path>
-    </svg></div>
+        </svg></div>
           </div>
           <div class="w-full bg-gray-light h-1">
             <div class="bg-warning text-xs leading-none h-1 text-center text-white rounded" style="width: 45%"></div>

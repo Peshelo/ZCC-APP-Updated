@@ -82,10 +82,7 @@
                   <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">DOB</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Mobile</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
-                  <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role</th> -->
-                  <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Taberi</th> -->
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actions</th>
-  
                 </tr>
               </thead>
               <tbody class="bg-white">
@@ -103,7 +100,7 @@
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.email}}</td>
                   <!-- <td v-if="member.position !== null" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.position }}</td> -->
                   <!-- <td v-else class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td> -->
-                  <td class="whitespace-nowrap flex flex-row gap-2 px-3 py-4 text-xs gap-2 text-gray-500">
+                  <td class="whitespace-nowrap flex flex-row gap-2 px-3 py-4 text-xs text-gray-500">
                     <button @click="deleteMember(member.id)" class="bg-red-500 text-white p-2 rounded">Delete</button> 
                     <button @click="showModalMember(member)" class="bg-blue-500 text-white p-2 rounded" >View</button> 
                     <button @click="showModal(member)" class="bg-green-500 text-white p-2 rounded">Make Committe</button>
@@ -138,12 +135,12 @@
                 <tr v-for="(member,index) in this.committeMembers" :key="index" class="border-t border-gray-300">
                   <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ index + 1 }}</td>
   
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.firstname }}</td>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.lastname }}</td>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.gender }}</td>
-                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.dateOfBirth }}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.mobileNumber }}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.email}}</td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.user.firstname }}</td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.user.lastname }}</td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.user.gender }}</td>
+                  <td class="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{{ member.user.dateOfBirth }}</td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.user.mobileNumber }}</td>
+                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.user.email}}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{this.committeMembers[index].position}}</td>
   
                   <!-- <td v-if="member.position !== null" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.position }}</td> -->
@@ -230,11 +227,9 @@ import tabheriAddMember from './tabheriAddMember.vue'
   this.errors.network = "Error: " + err.message;
   this.errors.ERR = err;
   console.log("Error:",err.message)
-  
   }
      }
        },
-       
     showModal(member){
       this.currentMember = member;
       this.currentId = member.id;
