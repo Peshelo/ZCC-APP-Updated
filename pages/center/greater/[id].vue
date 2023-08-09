@@ -6,11 +6,11 @@
     <div class="px-4 sm:px-6 lg:px-8">
       <div class="sm:flex sm:items-center sm:justify-between">
         <div class="sm:flex-auto">
-          <h1 class="text-xl font-semibold text-gray-900">{{this.nyikas.name}} Nyika Overview</h1>
+          <h1 class="text-xl font-semibold text-gray-900">{{this.nyikas.name}} Greater Overview</h1>
           <p class="mt-2 text-sm text-gray-700">A list of all the church nyikas.</p>
         </div>
         <form @submit.prevent="addNew()" class="sm:mt-0 sm:ml-16 sm:flex-none flex flex-row items-center gap-2">
-          <input v-model="nyika" type="text" name="Region" class="h-fit rounded-md border border-gray-400" id="region" placeholder="New nyika Name...">
+          <input v-model="nyika" type="text" name="Region" class="h-fit rounded-md border border-gray-400 p-2" id="region" placeholder="New nyika Name...">
           <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
         </form>
       </div>
@@ -19,23 +19,19 @@
           <div class="inline-block min-w-full py-2 align-middle">
             
             <div  class="grid grid-cols-4 gap-4 my-10">
-    <div v-for="(nyika,index) in this.nyikas.nyikas" :key="index" class="bg-green-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
+    <div v-for="(nyika,index) in this.nyikas.nyikas" :key="index" class="bg-cyan-700 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
         <p class="text-white text-lg bbold mb-3">{{ nyika.name }}</p>
         <p class="text-xs text-gray-200">No. of tabhera ({{ nyika.taberis.length }})</p>
     </div>
-    <div class="border-green-500 border-2 border-dashed flex flex-row justify-center items-center p-5 w-full shadow-xl rounded-md duration-300">
-        <p class="text-4xl bbold text-green-500">+</p>
+    <div class="border-cyan-700 border-2 border-dashed flex flex-row justify-center items-center p-5 w-full shadow-xl rounded-md duration-300">
+        <p class="text-4xl bbold text-cyan-700">+</p>
     </div>
   </div>
-<p class="text-md mmedium my-5">Tabular View</p>
-            <div class="shadow-sm ring-1 ring-black ring-opacity-5">
-              <button class="flex flex-row items-center p-2 rounded-md border border-blue-400 text-blue-500" @click="asPDF()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-   <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-   <path d="M12 17v-6"></path>
-   <path d="M9.5 14.5l2.5 2.5l2.5 -2.5"></path>
-</svg> Download CSV</button>
+
+<p class="text-md mmedium my-5">Nyikas Table</p>
+<SharedDownloadCSV @click="asPDF()" class="my-2"/>
+            <div class="bg-white border border-gray-300 rounded-md py-2 ring-1 ring-black ring-opacity-5">
+             
               <table class="min-w-full border-separate" style="border-spacing: 0">
                 <thead class="bg-gray-50">
                   <tr>
@@ -53,7 +49,7 @@
                     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{nyika.name}}</td>
                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{ nyika.taberis.length }}</td>
                     <td class="relative whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
-                      <NuxtLink :to="'./'+nyika.id" class="text-indigo-600 hover:text-indigo-900">View</NuxtLink>
+                      <NuxtLink :to="'./nyika/'+nyika.id" class="text-indigo-600 hover:text-indigo-900">View</NuxtLink>
                     </td>
                   </tr>
     
@@ -71,6 +67,7 @@
     </template>
     
     <script>
+
     import axios from 'axios'
     export default {
     data(){

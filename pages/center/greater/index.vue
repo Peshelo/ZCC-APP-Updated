@@ -12,8 +12,8 @@
         <div class="mt-1">
         </div>
       </div>
-        <input v-model="greater" type="text" name="Region" class="h-fit rounded-md border border-gray-400" id="region" placeholder="New Greater Name...">
-        <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
+        <input v-model="greater" type="text" name="Region" class="h-fit p-2 rounded-md border border-gray-400" id="region" placeholder="New Greater Name...">
+        <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
       </form>
     </div>
     <div class="mt-2 flex flex-col">
@@ -21,16 +21,16 @@
         <div class="inline-block min-w-full py-2 align-middle">
           
           <div  class="grid grid-cols-4 gap-4 my-10">
-  <div v-for="(greater,index) in greaters" :key="index" class="bg-green-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
+  <div v-for="(greater,index) in greaters" :key="index" class="bg-cyan-700 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
       <p class="text-white text-lg bbold mb-3">{{ greater.name }}</p>
       <p class="text-xs text-gray-200">No. of Nyikas ({{ greater.nyikas.length }})</p>
   </div>
-  <div class="border-green-500 border-2 border-dashed flex flex-row justify-center items-center p-5 w-full shadow-xl rounded-md duration-300">
-      <p class="text-4xl bbold text-green-500">+</p>
+  <div class="border-cyan-500 border-2 border-dashed flex flex-row justify-center items-center p-5 w-full shadow-xl rounded-md duration-300">
+      <p class="text-4xl bbold text-cyan-500">+</p>
   </div>
 </div>
 <p class="text-md mmedium my-5">{{ greaters.name }} Greater View</p>
-          <div class="shadow-sm ring-1 ring-black ring-opacity-5">
+          <div class="bg-white border border-gray-300 rounded-md py-2 ring-1 ring-black ring-opacity-5">
             <table class="min-w-full border-separate" style="border-spacing: 0">
               <thead class="bg-gray-50">
                 <tr>
