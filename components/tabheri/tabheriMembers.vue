@@ -166,7 +166,7 @@ import tabheriAddMember from './tabheriAddMember.vue'
     props: {
     id: {
       type: String,
-      required: true,
+      required: true
     }
   },
     loading: true,

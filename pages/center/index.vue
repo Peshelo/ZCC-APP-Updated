@@ -11,14 +11,15 @@
             <div class="flex items-center">
               <div class="font-semibold text-2xl m-0">$24,000</div>
             </div>
-          </div>    
+          </div>
           <div class="p-5 py-6 rounded-full text-white"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-chart-bar" width="40" height="30" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
      <path d="M3 12m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v6a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
      <path d="M9 8m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v10a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
      <path d="M15 4m0 1a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v14a1 1 0 0 1 -1 1h-4a1 1 0 0 1 -1 -1z"></path>
      <path d="M4 20l14 0"></path>
-  </svg></div>
+  </svg>
+</div>
         </div>
         <div class="w-full bg-gray-light h-1">
           <div class="bg-warning text-xs leading-none h-1 text-center text-white rounded" style="width: 45%"></div>
