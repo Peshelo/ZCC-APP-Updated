@@ -135,7 +135,7 @@ export default {
               this.$router.push('/region/')
             }
             if(localStorage.role === "JERUSALEM_ADMIN"){
-              this.$router.push('/dashboard/')
+              this.$router.push('/jerusalem/')
             }
           }
         }).catch(error => {

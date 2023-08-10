@@ -25,7 +25,7 @@
                       </select>
                       <button @click="this.makeAdmin(currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
         </div>
-                     
+
         </div>
       <div class="modal backdrop-brightness-50 flex flex-col items-region h-full" v-if="this.modal">
         <button @click="showModal(0)" class="text-white bg-red-500 p-2 my-2 w-fit rounded-md text-right text-sm">Close</button> 
