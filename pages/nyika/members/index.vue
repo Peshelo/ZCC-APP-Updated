@@ -1,14 +1,14 @@
 <template>
     <NuxtLayout name="default">
-      <nyikaCommitteeMembers :id="this.scopeId"/>
+      <nyikaMembers :id="this.scopeId"/>
     </NuxtLayout>
   </template>
   
   <script>
-  import nyikaCommitteeMembers from '../../components/nyika/nyikaCommitteeMembers.vue';
+  import nyikaMembers from '@/components/nyika/nyikaMembers.vue';
 
   export default {
-    components: { nyikaCommitteeMembers },
+    components: { nyikaMembers },
     data() {
         return {
             scopeId: ""

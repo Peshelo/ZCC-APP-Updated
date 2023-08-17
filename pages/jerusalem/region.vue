@@ -24,6 +24,8 @@
                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">No.</th>
                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:pl-6 lg:pl-8">Region</th>
                     <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">No. of centers</th>
+                    <!-- <th scope="col" class="sticky top-0 z-10 hidden border-b border-gray-300 bg-gray-50 bg-opacity-75 px-3 py-3.5 text-left text-sm font-semibold text-gray-900 backdrop-blur backdrop-filter sm:table-cell">No. of greaters</th> -->
+
                     <th scope="col" class="sticky top-0 z-10 border-b border-gray-300 bg-gray-50 bg-opacity-75 py-3.5 pr-4 pl-3 backdrop-blur backdrop-filter sm:pr-6 lg:pr-8">
                       Actions
                     </th>
@@ -34,9 +36,10 @@
                     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ index + 1 }}</td>
                     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{ region.name }}</td>
                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{ region.centers.length }}</td>
-                    <!-- <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{ region.centers[index].greaters.length }}wdwd</td> -->
+                    <!-- <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell" v-if="region.centers[index].greaters !== undefined">{{ region.centers[index].greaters.length }}</td> -->
 
-                    <td class="relative text-center whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3  text-sm font-medium sm:pr-6 lg:pr-8">
+                    <td class="relative text-center whitespace-nowrap flex flex-row gap-x-2 justify-center border-b border-gray-200 py-4 pr-4 pl-3  text-sm font-medium sm:pr-6 lg:pr-8">
+                      <NuxtLink :to="`./hierachy/${region.id}`" class="bg-blue-500 text-white p-2 rounded-md">View Centers</NuxtLink>
                       <button @click="deleteRegion(region.id)" class="bg-red-600 text-white p-2 rounded-md hover:text-indigo-900">Delete<span class="sr-only"></span></button>
                     </td>
                   </tr>
@@ -121,6 +124,7 @@
        }).then((response) =>{
        const data = response.data;
        console.log(data);
+       this.getRegion();
         alert("New Region Added");
         this.getRegion();
      }).catch(error => {

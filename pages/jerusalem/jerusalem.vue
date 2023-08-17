@@ -13,7 +13,7 @@
       </form>
     </div>
     <div class="grid grid-cols-4 my-10 gap-3">
-      <div @click="getCenters(region.id)" v-for="(region,index) in this.regions" :key="index" class="bg-green-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
+      <div @click="getCenters(region.id)" v-for="(region,index) in this.regions" :key="index" class="bg-cyan-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
         <p class="text-white text-lg bbold mb-3">{{ region.name }}</p>
         <p class="text-xs text-gray-200">No. of centers ({{ region.centers.length }})</p>
     </div>

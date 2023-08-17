@@ -8,8 +8,8 @@
           <p class="mt-2 text-sm text-gray-700">A list of all the church greaters in your account including their name, title, email and role.</p>
         </div>
         <form @submit.prevent="addNew()" class="sm:mt-0 sm:ml-16 sm:flex-none flex flex-row items-center gap-2">
-          <input v-model="greater" type="text" name="Region" class="h-fit rounded-md border border-gray-400" id="region" placeholder="New center Name">
-          <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
+          <input disabled v-model="greater" type="text" name="Region" class="h-fit p-2 rounded-md border border-gray-400" id="region" placeholder="New center Name">
+          <button disabled type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
         </form>
       </div>
       <div class="mt-8 flex flex-col">
@@ -17,7 +17,7 @@
           <div class="inline-block min-w-full py-2 align-middle">
             
             <div  class="grid grid-cols-4 gap-4 my-10">
-    <div v-for="(greater,index) in greaters" :key="index" class="bg-green-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
+    <div v-for="(greater,index) in greaters" :key="index" class="bg-cyan-600 p-5 w-full shadow-xl rounded-md hover:-mt-2 duration-300">
         <p class="text-white text-lg bbold mb-3">{{ greater.name }} Greater</p>
         <p class="text-xs text-gray-200">No. of nyikas ({{ greater.nyikas.length }})</p>
     </div>

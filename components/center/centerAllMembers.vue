@@ -18,12 +18,12 @@
                       <p class="text-center font-bold text-green-500">
                        Select Center
                       </p>
-                      <p v-if="this.errors.currentCenter" class="text-center text-red-500">
+                      <p v-if="this.errors.currentGreater" class="text-center text-red-500">
                         *Region is required<br>
                       </p>
-                      <select v-model="currentCenter" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
+                      <select v-model="currentGreater" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
-                                    <option v-for="(center,index) in this.region.centers" :key="index" :value="center.id">{{ center.name }}</option>
+                                    <option v-for="(greater,index) in this.center.greaters" :key="index" :value="greater.id">{{ greater.name }}</option>
                       </select>
                       <button @click="this.makeAdmin(this.currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
         </div>
@@ -184,7 +184,7 @@
       loading: false,
       members: [],
       center:[],
-      currentCenter:[],
+      currentGreater:[],
       committeMembers: [],
       errors:{},
       region:[],
@@ -203,11 +203,11 @@
     }
   },
   methods:{
-    async getCenter() {
-        console.log("Fetching Region Data....");
+    async getGreaters() {
+        console.log("Fetching Center Data....");
         this.loading = true;
-        // const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/regions/get{id}?id=${this.id}`;
+        // const scope = localStorage.getItem('scopeId')
+        const URL= `http://localhost:8080/centers/get${this.id}`;
 
         await axios.get(URL, {
           headers: {
@@ -218,10 +218,10 @@
           }
         }).then((res) => {
         
-          this.region = res.data;
+          this.center = res.data;
           // this.tabheriMembers = res.data.members
           console.log(this.center);
-          console.log("Fetching Greater Data Completed...");
+          console.log("Fetching Center Data Completed...");
         }).catch(error => {
           console.warn(error.code)
           alert(error);
@@ -239,7 +239,7 @@
           this.loading = true;
           //Endpoint to add member
           //Munashe add endpoint to add member. Just use fixed parameters
-          const URL = `http://localhost:8080/centers/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&regionId=${this.id}`;
+          const URL = `http://localhost:8080/centers/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&centerId=${this.id}`;
       try{
        await axios.post(URL,
        {
@@ -270,8 +270,8 @@
        },
        async makeAdmin(memberId){
            this.errors = {};
-           if(!this.currentCenter){
-              this.errors.currentCenter ="Center is required"
+           if(!this.currentGreater){
+              this.errors.currentGreater ="Greater is required"
            }
            if (Object.keys(this.errors).length === 0) {
             this.modal = false;
@@ -279,7 +279,7 @@
       // Your code for handling the form submission
           this.loading = true;
           const scope = localStorage.getItem('scopeId');
-          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentCenter}&scope=CENTER`;
+          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentGreater}&scope=GREATER`;
       try{
        await axios.post(URL,
        {
@@ -466,7 +466,7 @@
          }).then((response) =>{
          const data = response.data;
          console.log(data);
-         this.getCenter();
+         this.getGreaters();
         alert("User has been deleted");
        }).catch(error => {
        console.log(error)
@@ -495,7 +495,7 @@
   mounted(){
     this.getMembers();
     this.getPositions();
-    this.getCenter();
+    this.getGreaters();
     this.getCommittee();
     this.$nextTick(() => {
         this.$nuxt.$loading.start()

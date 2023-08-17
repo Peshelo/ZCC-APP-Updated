@@ -1,6 +1,6 @@
 <template>
   <NuxtLayout name="default">
-    <h1 class="text-2xl font-bold">{{ region.name }} Dashboard</h1>
+    <h1 class="text-2xl font-bold">{{ region.name }} Region Dashboard</h1>
     <h2 class="text-md text-gray-600 font-semibold mb-5">Overview</h2>
     <h2 class="text-md font-bold mb-3">General Statistics</h2>
     <div class="grid lg:grid-cols-4 gap-4 mb-5">

@@ -1,13 +1,13 @@
 <template>
     <NuxtLayout name="default">
-      <greaterMembers :id="this.scopeId"/>
+      <greaterAllMembers :id="this.scopeId"/>
     </NuxtLayout>
   </template>
   
   <script>
-  import greaterMembers from '../../components/greater/greaterMembers.vue';
+  import greaterAllMembers from '@/components/greater/greaterAllMembers.vue';
   export default {
-    components:{greaterMembers},
+    components:{greaterAllMembers},
     data(){
       return{
         scopeId:''

@@ -16,14 +16,14 @@
                       </p>
                       <br>
                       <p class="text-center font-bold text-green-500">
-                       Select Center
+                       Select Tabheri
                       </p>
-                      <p v-if="this.errors.currentCenter" class="text-center text-red-500">
-                        *Region is required<br>
+                      <p v-if="this.errors.currentTabheri" class="text-center text-red-500">
+                        *Tabheri is required<br>
                       </p>
-                      <select v-model="currentCenter" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
+                      <select v-model="currentTabheri" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
-                                    <option v-for="(center,index) in this.region.centers" :key="index" :value="center.id">{{ center.name }}</option>
+                                    <option v-for="(tabheri,index) in this.nyikas.taberis" :key="index" :value="tabheri.id">{{ tabheri.name }}</option>
                       </select>
                       <button @click="this.makeAdmin(this.currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
         </div>
@@ -183,8 +183,8 @@
     return{
       loading: false,
       members: [],
-      center:[],
-      currentCenter:[],
+      nyikas:[],
+      currentTabheri:[],
       committeMembers: [],
       errors:{},
       region:[],
@@ -203,11 +203,11 @@
     }
   },
   methods:{
-    async getCenter() {
-        console.log("Fetching Region Data....");
+    async getTabheris() {
+        console.log("Fetching Nyikas Data....");
         this.loading = true;
-        // const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/regions/get{id}?id=${this.id}`;
+        // const scope = localStorage.getItem('scopeId')
+        const URL= `http://localhost:8080/nyikas/get/${this.id}`;
 
         await axios.get(URL, {
           headers: {
@@ -218,10 +218,10 @@
           }
         }).then((res) => {
         
-          this.region = res.data;
+          this.nyikas = res.data;
           // this.tabheriMembers = res.data.members
-          console.log(this.center);
-          console.log("Fetching Greater Data Completed...");
+          console.table(this.nyikas);
+          console.log("Fetching Nyika Data Completed...");
         }).catch(error => {
           console.warn(error.code)
           alert(error);
@@ -239,7 +239,7 @@
           this.loading = true;
           //Endpoint to add member
           //Munashe add endpoint to add member. Just use fixed parameters
-          const URL = `http://localhost:8080/centers/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&regionId=${this.id}`;
+          const URL = `http://localhost:8080/nyikas/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&nyikasId=${this.id}`;
       try{
        await axios.post(URL,
        {
@@ -268,10 +268,10 @@
   }
      }
        },
-       async makeAdmin(memberId){
+ async makeAdmin(memberId){
            this.errors = {};
-           if(!this.currentCenter){
-              this.errors.currentCenter ="Center is required"
+           if(!this.currentTabheri){
+              this.errors.currentTabheri ="Tabheri is required"
            }
            if (Object.keys(this.errors).length === 0) {
             this.modal = false;
@@ -279,7 +279,7 @@
       // Your code for handling the form submission
           this.loading = true;
           const scope = localStorage.getItem('scopeId');
-          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentCenter}&scope=CENTER`;
+          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentTabheri}&scope=TABHERA`;
       try{
        await axios.post(URL,
        {
@@ -295,6 +295,7 @@
          console.log(data);
         alert("New Admin Member Added");
        }).catch(error => {
+        alert("Failed To Add Committee")
        console.log(error);
        this.errored = true
      }).finally(() => this.loading = false);
@@ -331,7 +332,7 @@
       this.addMember = !this.addMember
     },
     asPDF(){
-        this.exportTableToCSV(null, 'region Members.csv');
+        this.exportTableToCSV(null, 'Nyika Members.csv');
       },
       exportTableToCSV(html, filename) {
       var csv = [];
@@ -387,7 +388,7 @@
       async getCommittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-        const URL= `http://localhost:8080/centers/${this.id}/committeeMembers`;
+        const URL= `http://localhost:8080/nyikas/${this.id}/members`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -466,7 +467,7 @@
          }).then((response) =>{
          const data = response.data;
          console.log(data);
-         this.getCenter();
+         this.getTabheris();
         alert("User has been deleted");
        }).catch(error => {
        console.log(error)
@@ -495,8 +496,8 @@
   mounted(){
     this.getMembers();
     this.getPositions();
-    this.getCenter();
-    this.getCommittee();
+    this.getTabheris();
+    // this.getCommittee();
     this.$nextTick(() => {
         this.$nuxt.$loading.start()
         setTimeout(() => this.$nuxt.$loading.finish(), 500)

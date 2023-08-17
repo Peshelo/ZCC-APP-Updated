@@ -115,7 +115,7 @@
             <div class="w-1/4 px-4">
               <div class="text-center mb-10 bg-white shadow rounded-lg p-6">
                 <div
-                  class="w-10 h-10 rounded-full bg-green-600 mb-4 mx-auto"
+                  class="w-10 h-10 rounded-full bg-cyan-600 mb-4 mx-auto"
                 ></div>
                 <div class="h-2 rounded-full bg-gray-200"></div>
               </div>
@@ -290,7 +290,7 @@
               class="text-center mb-6 bg-white shadow rounded-lg px-2 py-3"
             >
               <div
-                class="w-4 h-4 rounded-full bg-green-600 mb-2 mx-auto"
+                class="w-4 h-4 rounded-full bg-cyan-600 mb-2 mx-auto"
               ></div>
               <div class="h-2 w-8 mx-auto rounded-full bg-gray-200"></div>
             </div>

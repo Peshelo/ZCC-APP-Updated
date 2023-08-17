@@ -1,43 +1,41 @@
 <template>
     <div>
-      <!-- <div class="modal backdrop-brightness-50 overflow-y-auto flex flex-col justify-center items-region h-full" v-if="this.addMember">
+      <!-- <div class="modal backdrop-brightness-50 overflow-y-auto flex flex-col justify-jerusalem items-center h-full" v-if="this.addMember">
         <button @click="addNewMember()" class="text-sm w-fit text-left text-white bg-red-500 p-3 rounded-md my-3">Close</button>
         <tabheriAddMember :id="this.id"/> 
       </div> -->
-      <div class="modal backdrop-brightness-50 flex flex-col items-region h-full" v-if="this.modalUser">
+      <div class="modal backdrop-brightness-50 flex flex-col items-center h-full" v-if="this.modalUser">
         <button @click="showModalMember(0)" class="text-white bg-red-500 p-2 text-sm my-2 w-fit rounded-md text-right">Close</button> 
-        <div class="bg-white text-black shadow-lg text-sm p-10 rounded-md flex flex-col items-region w-fit h-fit">
-          <label class="text-center font-bold text-lg">Make Nyika Admin</label>
+        <div class="bg-white text-black shadow-lg text-sm p-10 rounded-md flex flex-col items-center w-fit h-fit">
+          <label class="text-center font-bold text-lg">Make Region Admin</label>
           <br>
                       <p class="text-center">
-                        Id: {{ this.currentMember.id }}<br>
-
                         Name: {{ this.currentMember.firstname }} {{ this.currentMember.lastname }}<br>
                       </p>
                       <br>
                       <p class="text-center font-bold text-green-500">
-                       Select Center
+                       Select Region
                       </p>
-                      <p v-if="this.errors.currentCenter" class="text-center text-red-500">
+                      <p v-if="this.errors.currentRegion" class="text-center text-red-500">
                         *Region is required<br>
                       </p>
-                      <select v-model="currentCenter" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
+                      <select v-model="currentRegion" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
-                                    <option v-for="(center,index) in this.region.centers" :key="index" :value="center.id">{{ center.name }}</option>
+                                    <option v-for="(region,index) in this.jerusalem.regions" :key="index" :value="region.id">{{ region.name }}</option>
                       </select>
-                      <button @click="this.makeAdmin(this.currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
+                      <button @click="this.makeAdmin(currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
         </div>
-
+                     
         </div>
-      <div class="modal backdrop-brightness-50 flex flex-col items-region h-full" v-if="this.modal">
+      <div class="modal backdrop-brightness-50 flex flex-col items-center h-full" v-if="this.modal">
         <button @click="showModal(0)" class="text-white bg-red-500 p-2 my-2 w-fit rounded-md text-right text-sm">Close</button> 
-        <div class="bg-white border-2 text-black text-sm p-10 rounded-md flex flex-col items-region shadow-md w-fit h-fit">
+        <div class="bg-white border-2 text-black text-sm p-10 rounded-md flex flex-col items-center shadow-md w-fit h-fit">
           <label class="text-center font-bold text-lg">Make Committe Member</label>
           <br>
                       <p class="text-center">
                         Name: {{ this.currentMember.firstname }} {{ this.currentMember.lastname }}<br>
                       </p>
-                      <form @submit.prevent="handleSubmit()" class="committee flex flex-col w-full items-region justify-center my-2">
+                      <form @submit.prevent="handleSubmit()" class="committee flex flex-col w-full items-center justify-jerusalem my-2">
                                 <!-- <label>Committee Role</label> -->
                                 <select v-model="currentPosition" class="border p-2 text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
@@ -67,7 +65,7 @@
   
       <!-- Table -->
       <div class="bg-white border border-gray-300 rounded-md my-4">
-        <div class="flex flex-row justify-between items-region my-2 px-2">
+        <div class="flex flex-row justify-between items-center my-2 px-2">
        <downloadCSV @click="asPDF()"/>
   <input type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tabheriMembers,searchParam)"/>
         </div>
@@ -183,11 +181,10 @@
     return{
       loading: false,
       members: [],
-      center:[],
-      currentCenter:[],
+      jerusalem:[],
+      currentRegion:[],
       committeMembers: [],
       errors:{},
-      region:[],
       errored: false,
       memberz:true,
       committe: false,
@@ -203,12 +200,14 @@
     }
   },
   methods:{
-    async getCenter() {
-        console.log("Fetching Region Data....");
+    async getJerusalem() {
+        console.log("Fetching Greater Data....");
         this.loading = true;
-        // const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/regions/get{id}?id=${this.id}`;
-
+        const scopeId = localStorage.getItem('scopeId')
+        const URL= `http://localhost:8080/jerusalem/get{id}?id=${scopeId}`;
+        // const token = localStorage.token;
+        // console.log('Token is string: ' + isString(token))
+        // console.log(token);
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',
@@ -217,11 +216,11 @@
             'Access-Control-Allow-Origin': '*'
           }
         }).then((res) => {
+          this.jerusalem = res.data;
         
-          this.region = res.data;
           // this.tabheriMembers = res.data.members
-          console.log(this.center);
-          console.log("Fetching Greater Data Completed...");
+          console.log(this.jerusalem);
+          console.log("Fetching Region Data Completed...");
         }).catch(error => {
           console.warn(error.code)
           alert(error);
@@ -239,7 +238,7 @@
           this.loading = true;
           //Endpoint to add member
           //Munashe add endpoint to add member. Just use fixed parameters
-          const URL = `http://localhost:8080/centers/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&regionId=${this.id}`;
+          const URL = `http://localhost:8080/jerusalem/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&jerusalemId=${this.id}`;
       try{
        await axios.post(URL,
        {
@@ -270,8 +269,8 @@
        },
        async makeAdmin(memberId){
            this.errors = {};
-           if(!this.currentCenter){
-              this.errors.currentCenter ="Center is required"
+           if(!this.currentRegion){
+              this.errors.currentRegion ="Region is required"
            }
            if (Object.keys(this.errors).length === 0) {
             this.modal = false;
@@ -279,7 +278,7 @@
       // Your code for handling the form submission
           this.loading = true;
           const scope = localStorage.getItem('scopeId');
-          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentCenter}&scope=CENTER`;
+          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentRegion}&scope=REGION`;
       try{
        await axios.post(URL,
        {
@@ -331,7 +330,7 @@
       this.addMember = !this.addMember
     },
     asPDF(){
-        this.exportTableToCSV(null, 'region Members.csv');
+        this.exportTableToCSV(null, 'jerusalem Members.csv');
       },
       exportTableToCSV(html, filename) {
       var csv = [];
@@ -363,8 +362,7 @@
     async getMembers() {
         console.log("Fetching Members Data....");
         this.loading = true;
-        const URL= `http://localhost:8080/members`;
-        
+        const URL= `http://localhost:8080/jerusalem/members/${this.id}`;
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',
@@ -387,7 +385,7 @@
       async getCommittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-        const URL= `http://localhost:8080/centers/${this.id}/committeeMembers`;
+        const URL= `http://localhost:8080/jerusalem/${localStorage.scopeId}/committeeMembers/${this.id}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -466,7 +464,7 @@
          }).then((response) =>{
          const data = response.data;
          console.log(data);
-         this.getCenter();
+         this.getJerusalem();
         alert("User has been deleted");
        }).catch(error => {
        console.log(error)
@@ -495,7 +493,7 @@
   mounted(){
     this.getMembers();
     this.getPositions();
-    this.getCenter();
+    this.getJerusalem();
     this.getCommittee();
     this.$nextTick(() => {
         this.$nuxt.$loading.start()
@@ -516,7 +514,7 @@
       width: 100%;
       height: 100%;
       background: rgba(255, 255, 255, 0.8);
-      text-align: center;
+      text-align: jerusalem;
       padding-top: 200px;
       font-size: 30px;
       font-family: sans-serif;

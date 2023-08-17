@@ -123,7 +123,8 @@
     async getCenter() {
         console.log("Fetching center Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/centers";
+        const scope = localStorage.getItem('scopeId')
+       const URL= `http://localhost:8080/regions/get{id}?id=${scope}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -135,7 +136,7 @@
             'Access-Control-Allow-Origin': '*'
           }
         }).then((res) => {
-          this.centers = res.data;
+          this.centers = res.data.centers;
           // this.loadImages();
           var x= 0;
        
@@ -208,7 +209,7 @@
    name:this.center,
    },{
        headers: {'Content-Type': 'application/json',
-       // Authorization : 'Bear' + localStorage.token,
+       Authorization : 'Bearer ' + localStorage.token,
        'Access-Control-Allow-Origin': '*'
      },
        credentials: 'include',

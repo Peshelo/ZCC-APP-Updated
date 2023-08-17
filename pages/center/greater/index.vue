@@ -84,7 +84,8 @@
     async getGreater() {
         console.log("Fetching Greater Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/greaters";
+        const scope = localStorage.getItem('scopeId');
+       const URL= `http://localhost:8080/centers/get${scope}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -96,7 +97,7 @@
             'Access-Control-Allow-Origin': '*'
           }
         }).then((res) => {
-          this.greaters = res.data;
+          this.greaters = res.data.greaters;
           // this.loadImages();
           var x= 0;
           //   for(x=0;x<this.properties.length;x++){
@@ -123,10 +124,11 @@
        if (Object.keys(this.errors).length === 0) {
   // Your code for handling the login form submission
   this.loading = true;
+  const scope = localStorage.getItem('scopeId');
   try{
-   await axios.post('http://localhost:8080/greaters/add?greaterId='+ this.greaterId,
+   await axios.post(`http://localhost:8080/greaters/create?centerId=${scope}`,
    {
-   name:this.center,
+   name:this.greater,
    },{
        headers: {'Content-Type': 'application/json',
        // Authorization : 'Bear' + localStorage.token,

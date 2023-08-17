@@ -11,6 +11,14 @@
         </div>
         <form @submit.prevent="addNew()" class="sm:mt-0 sm:ml-16 sm:flex-none flex flex-row items-center gap-2">
           <input v-model="nyika" type="text" name="Region" class="h-fit p-2 rounded-md border border-gray-400" id="region" placeholder="New nyika Name">
+          <select v-model="this.financialGroup" class="h-fit p-3 rounded-md border border-gray-400 bg-white text-black">
+            <option selected disabled>Financial Group</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+            <option>D</option>
+            <option>Ruzevha</option>
+          </select>
           <button type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
         </form>
       </div>
@@ -72,6 +80,7 @@
       return{
         loading: false,
         nyikas: [],
+        financialGroup:'',
         nyika:"",
         greaterId:1,
         errors:{},
@@ -182,22 +191,27 @@ async deleteNyika(id){
     
           }).finally(() => this.loading = false);
         },
-        async addNew(){
+  async addNew(){
          
          this.errors = {};
          if(!this.greaterId){
-             this.errors.greaterId = "Email is required";
+             this.errors.greaterId = "GreaterId is required";
          }
          if(!this.nyika){
-             this.errors.nyika = "Email is required";
+             this.errors.nyika = "Nyika name is required";
+         }
+         if(!this.financialGroup){
+            this.errors.financialGroup = "Select financial group";
          }
          if (Object.keys(this.errors).length === 0) {
     // Your code for handling the login form submission
     this.loading = true;
+    const scope = localStorage.getItem('scopeId')
     try{
-     await axios.post('http://localhost:8080/nyikas/create?greaterId='+ this.greaterId,
+     await axios.post(`http://localhost:8080/nyikas/create?greaterId=${scope}`,
      {
-     name:this.nyika
+     name:this.nyika,
+     financialGroup: this.financialGroup
      },{
          headers: {'Content-Type': 'application/json',
          Authorization : 'Bearer ' + localStorage.token,
@@ -209,9 +223,7 @@ async deleteNyika(id){
        console.log(data);
        this.nyika = "";
        this.getNyika();
-        alert("New Region Added");
-        this.getTaberis();
-        // this.getRegion();
+        alert("New Nyika Added");
      }).catch(error => {
      console.log(error)
      this.errored = true
