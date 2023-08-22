@@ -86,7 +86,7 @@
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Email</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Category</th>
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Skill</th>
-                  <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tabheri</th>
+                  <!-- <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Tabheri</th> -->
                   <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Actions</th>
                 </tr>
               </thead>
@@ -105,7 +105,7 @@
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.email}}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.category}}</td>
                   <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.skill}}</td>
-                  <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.taberi.name}}</td>
+                  <!-- <td class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{member.taberi.name}}</td> -->
 
                   <!-- <td v-if="member.position !== null" class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">{{ member.position }}</td> -->
                   <!-- <td v-else class="whitespace-nowrap px-3 py-4 text-sm text-gray-500">Member</td> -->

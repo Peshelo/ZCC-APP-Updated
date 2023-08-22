@@ -4,9 +4,9 @@
         <button @click="addNewMember()" class="text-sm w-fit text-left text-white bg-red-500 p-3 rounded-md my-3">Close</button>
         <tabheriAddMember :id="this.id"/> 
       </div> -->
-      <div class="modal backdrop-brightness-50 flex flex-col items-region h-full" v-if="this.modalUser">
+      <div class="modal backdrop-brightness-50 flex flex-col items-center h-full" v-if="this.modalUser">
         <button @click="showModalMember(0)" class="text-white bg-red-500 p-2 text-sm my-2 w-fit rounded-md text-right">Close</button> 
-        <div class="bg-white text-black shadow-lg text-sm p-10 rounded-md flex flex-col items-region w-fit h-fit">
+        <div class="bg-white text-black shadow-lg text-sm p-10 rounded-md flex flex-col items-center w-fit h-fit">
           <label class="text-center font-bold text-lg">Make Nyika Admin</label>
           <br>
                       <p class="text-center">
@@ -16,28 +16,28 @@
                       </p>
                       <br>
                       <p class="text-center font-bold text-green-500">
-                       Select Nyika
+                       Select Center
                       </p>
-                      <p v-if="this.errors.currentNyika" class="text-center text-red-500">
-                        *Nyika is required<br>
+                      <p v-if="this.errors.currentCenter" class="text-center text-red-500">
+                        *Center is required<br>
                       </p>
-                      <select v-model="currentNyika" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
+                      <select v-model="currentCenter" class="border p-2 w-full text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
-                                    <option v-for="(nyika,index) in this.greater.nyikas" :key="index" :value="nyika.id">{{ nyika.name }}</option>
+                                    <option v-for="(center,index) in this.region.centers" :key="index" :value="center.id">{{ center.name }}</option>
                       </select>
                       <button @click="this.makeAdmin(this.currentMember.id)" class="bg-green-500 mt-2 text-white font-semibold p-3 rounded-md w-full">Submit</button>
         </div>
 
         </div>
-      <div class="modal backdrop-brightness-50 flex flex-col items-region h-full" v-if="this.modal">
+      <div class="modal backdrop-brightness-50 flex flex-col items-center h-full" v-if="this.modal">
         <button @click="showModal(0)" class="text-white bg-red-500 p-2 my-2 w-fit rounded-md text-right text-sm">Close</button> 
-        <div class="bg-white border-2 text-black text-sm p-10 rounded-md flex flex-col items-region shadow-md w-fit h-fit">
+        <div class="bg-white border-2 text-black text-sm p-10 rounded-md flex flex-col items-center shadow-md w-fit h-fit">
           <label class="text-center font-bold text-lg">Make Committe Member</label>
           <br>
                       <p class="text-center">
                         Name: {{ this.currentMember.firstname }} {{ this.currentMember.lastname }}<br>
                       </p>
-                      <form @submit.prevent="handleSubmit()" class="committee flex flex-col w-full items-region justify-center my-2">
+                      <form @submit.prevent="handleSubmit()" class="committee flex flex-col w-full items-center justify-center my-2">
                                 <!-- <label>Committee Role</label> -->
                                 <select v-model="currentPosition" class="border p-2 text-black rounded bg-slate-50 border-gray-400">
                                     <option selected disabled>Select Role...</option>
@@ -183,11 +183,11 @@
     return{
       loading: false,
       members: [],
-      greater:[],
-      currentNyika:[],
+      region:[],
+      currentCenter:[],
       committeMembers: [],
       errors:{},
-      region:[],
+    //   region:[],
       errored: false,
       memberz:true,
       committe: false,
@@ -203,11 +203,11 @@
     }
   },
   methods:{
-    async getNyikas() {
-        console.log("Fetching Greater Data....");
+    async getCenters() {
+        console.log("Fetching Center Data....");
         this.loading = true;
         // const scope = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/greaters/get{id}?id=${this.id}`;
+        const URL= `http://localhost:8080/regions/get{id}?id=${this.id}`;
 
         await axios.get(URL, {
           headers: {
@@ -218,9 +218,9 @@
           }
         }).then((res) => {
         
-          this.greater = res.data;
+          this.region = res.data;
           // this.tabheriMembers = res.data.members
-          console.table(this.greater);
+          console.table(this.region);
           console.log("Fetching Center Data Completed...");
         }).catch(error => {
           console.warn(error.code)
@@ -239,7 +239,7 @@
           this.loading = true;
           //Endpoint to add member
           //Munashe add endpoint to add member. Just use fixed parameters
-          const URL = `http://localhost:8080/greater/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&greaterId=${this.id}`;
+          const URL = `http://localhost:8080/region/create/committeeMembers?userId=${this.currentMember.id}&position=${this.currentPosition}&regionId=${this.id}`;
       try{
        await axios.post(URL,
        {
@@ -270,8 +270,8 @@
        },
  async makeAdmin(memberId){
            this.errors = {};
-           if(!this.currentNyika){
-              this.errors.currentNyika ="Nyika is required"
+           if(!this.currentCenter){
+              this.errors.currentCenter ="Center is required"
            }
            if (Object.keys(this.errors).length === 0) {
             this.modal = false;
@@ -279,7 +279,7 @@
       // Your code for handling the form submission
           this.loading = true;
           const scope = localStorage.getItem('scopeId');
-          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentNyika}&scope=NYIKA`;
+          const URL = `http://localhost:8080/admin/create?UserId=${memberId}&scopeId=${this.currentCenter}&scope=CENTER`;
       try{
        await axios.post(URL,
        {
@@ -387,7 +387,7 @@
       async getCommittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-        const URL= `http://localhost:8080/greaters/${this.id}/members`;
+        const URL= `http://localhost:8080/region/${this.id}/members`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -466,7 +466,7 @@
          }).then((response) =>{
          const data = response.data;
          console.log(data);
-         this.getNyikas();
+         this.getCenters();
         alert("User has been deleted");
        }).catch(error => {
        console.log(error)
@@ -495,7 +495,7 @@
   mounted(){
     this.getMembers();
     this.getPositions();
-    this.getNyikas();
+    this.getCenters();
     // this.getCommittee();
     this.$nextTick(() => {
         this.$nuxt.$loading.start()
