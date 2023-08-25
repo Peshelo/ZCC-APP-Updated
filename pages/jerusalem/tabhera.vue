@@ -9,20 +9,19 @@
         <form @submit.prevent="addNew()" class="sm:mt-0 sm:ml-16 sm:flex-none flex flex-row items-center gap-2">
           <div class="sm:col-span-3">
         </div>
-          <input disabled v-model="tabheri" type="text" name="Region" class="h-fit border border-gray-400 rounded-md" id="region" placeholder="New nyika name...">
+          <input disabled v-model="tabheri" type="text" name="Region" class="h-fit border border-gray-400 p-2 rounded-md" id="region" placeholder="New nyika name...">
           <button disabled type="submit" class="inline-flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:w-auto">Add</button>
         </form>
       </div>
       <div class="mt-8 flex flex-col">
         <div class="">
           <div class="inline-block min-w-full py-2 align-middle">
-            <button class="flex flex-row items-center p-2 rounded-md border border-blue-400 text-blue-500" @click="asPDF()"><svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-file-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-   <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-   <path d="M14 3v4a1 1 0 0 0 1 1h4"></path>
-   <path d="M17 21h-10a2 2 0 0 1 -2 -2v-14a2 2 0 0 1 2 -2h7l5 5v11a2 2 0 0 1 -2 2z"></path>
-   <path d="M12 17v-6"></path>
-   <path d="M9.5 14.5l2.5 2.5l2.5 -2.5"></path>
-</svg> Download CSV</button>
+            <div class="flex flex-row justify-between items-region my-2">
+            <downloadCSV @click="asPDF()"/>
+            <div class="flex flex-row justify-center items-center gap-x-2">
+              <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tempTabheras,searchParam)"/>
+            </div>
+        </div>
             <div class="shadow-sm ring-1 ring-black ring-opacity-5">
               <table class="min-w-full border-separate" style="border-spacing: 0">
                 <thead class="bg-gray-50">
@@ -58,8 +57,10 @@
     </template>
     
   <script>
-  import axios from 'axios'
+  import axios from 'axios';
+  import downloadCSV from '@/components/shared/downloadCSV.vue';
   export default {
+    components:{downloadCSV},
   data(){
     return{
       loading: false,
@@ -67,7 +68,9 @@
       taberi:"",
       nyikaId:"",
       errors:{},
-      errored: false
+      errored: false,
+      searchParam: '',
+      tempTabheras: ''
     }
   },
   methods:{
@@ -117,6 +120,7 @@
           }
         }).then((res) => {
           this.taberis = res.data;
+          this.tempTabheras = this.taberis
           // this.loadImages();
           var x= 0;
        
@@ -177,6 +181,32 @@ console.log("Error:",err.message)
 }
    }
      },
+     filterTable(data, searchParam){
+        let result = [];
+        if(searchParam != ""){
+          this.tempTabheras.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+
+              currentItem = currentItem.toLowerCase();
+              searchParam = searchParam.toLowerCase();
+
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                  }
+              }
+          
+          });
+
+          this.taberis = result;
+        }else{
+        this.taberis= this.tempTabheras;
+
+        }
+       
+        // let temp = data;
+        
+       },
   },
   mounted(){
     this.getTaberis()

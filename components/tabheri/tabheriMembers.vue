@@ -67,7 +67,15 @@
       <div class="bg-white border border-gray-300 rounded-md my-4">
         <div class="flex flex-row justify-between items-center my-2 px-2">
        <downloadCSV @click="asPDF()"/>
-  <input type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tabheriMembers,searchParam)"/>
+       <div class="flex flex-row justify-center items-center gap-x-2">
+        <label>Filter by</label>
+        <select v-model="searchGender" type="text" class="rounded-md border p-2 border-gray-400 bg-white" @change="search(tabheriMembers,searchGender)">
+        <option selected value="">All</option>
+        <option value="MALE">Male</option>  
+        <option value="FEMALE">Female</option>
+        </select>
+        <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="search(tabheriMembers,searchParam)"/>
+       </div>
         </div>
       <p v-if="loading">Loading</p>
       <!-- <p>{{ members }}</p> -->
@@ -159,10 +167,11 @@
   <script>
   import axios from 'axios'
   // import {searchArray} from '@/plugins/search'
+  import downloadCSV from '@/components/shared/downloadCSV.vue'
 import tabheriAddMember from './tabheriAddMember.vue'
   
   export default {
-  components: { tabheriAddMember },
+  components: { tabheriAddMember,downloadCSV },
     props: {
     id: {
       type: String,
@@ -188,7 +197,9 @@ import tabheriAddMember from './tabheriAddMember.vue'
       modalUser: false,
       searchParam: '',
       foundArray:[],
-      addMember:false
+      addMember:false,
+      tempMembers:[],
+      searchGender: []
     }
   },
   methods:{
@@ -253,7 +264,7 @@ import tabheriAddMember from './tabheriAddMember.vue'
       this.addMember = !this.addMember
     },
     asPDF(){
-        this.exportTableToCSV(null, 'Tabheri Members.csv');
+        this.exportTableToCSV(null, this.tabheri.name +' Tabheri Members.csv');
       },
       exportTableToCSV(html, filename) {
       var csv = [];
@@ -407,20 +418,54 @@ import tabheriAddMember from './tabheriAddMember.vue'
   }
      }
        },
-       filterTable(arr, searchParams){
-        if(searchParams != ''){
-         this.foundArray = searchArray(arr,searchParams);
-          this.tabheriMembers = this.foundArray;
-          console.log(this.foundArray);
-        }else{
-          this.tabheriMembers = this.tabheri.members
-        }
+
+       searchJson(data,searchParam){
+        let result = [];
+          this.tempMembers.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                          }
+              }
+              
+          });
+          return result;
+          
+       
        },
+
+      searchMembers(data,searchParam){
+        if(searchParam !== ''){ 
+        this.tabheriMembers = this.searchJson(data,searchParam)
+        }else{
+          this.getTabheri();
+        }
+      },
+      searchCommitte(data,searchParam){
+        if(searchParam !== ''){ 
+        this.committeMembers = this.searchJson(data,searchParam);
+        }else{
+          this.getCommittee();
+        }
+      },
+      search(data,searchParam){
+        if(this.memberz == true){
+          this.searchMembers(data,searchParam);
+        }
+        // else{
+        //   this.searchCommitte(data,searchParam);
+        // }
+      }
   },
   mounted(){
     this.getTabheri();
     this.getPositions();
     this.getCommittee();
+
+    //For avoiding to refetch from server during search
+    this.tempMembers = this.tabheriMembers
+
     this.$nextTick(() => {
         this.$nuxt.$loading.start()
         setTimeout(() => this.$nuxt.$loading.finish(), 500)

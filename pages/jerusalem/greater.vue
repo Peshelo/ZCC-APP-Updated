@@ -26,6 +26,12 @@
     </div>
   </div>
 <p class="text-md mmedium my-5">Table View</p>
+<div class="flex flex-row justify-between items-region my-2 px-2">
+            <downloadCSV @click="asPDF()"/>
+            <div class="flex flex-row justify-center items-center gap-x-2">
+              <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tempGreaters,searchParam)"/>
+            </div>
+        </div>
             <div class="shadow-sm ring-1 ring-black ring-opacity-5">
               <table class="min-w-full border-separate" style="border-spacing: 0">
                 <thead class="bg-gray-50">
@@ -64,8 +70,11 @@
     </template>
     
     <script>
-    import axios from 'axios'
+    import axios from 'axios';
+    import downloadCSV from '@/components/shared/downloadCSV.vue';
+
     export default {
+      components : {downloadCSV},
     data(){
       return{
         loading: false,
@@ -73,7 +82,9 @@
         greater:"",
         greaterId:"",
         errors:{},
-        errored: false
+        errored: false,
+        tempGreaters: '',
+        searchParam: ''
       }
     },
     methods:{
@@ -93,6 +104,7 @@
             }
           }).then((res) => {
             this.greaters = res.data;
+            this.tempGreaters = this.greaters;
             // this.loadImages();
             var x= 0;
             //   for(x=0;x<this.properties.length;x++){
@@ -148,6 +160,32 @@ console.log("Error:",err.message)
 }
    }
      },
+     filterTable(data, searchParam){
+        let result = [];
+        if(searchParam != ""){
+          this.tempGreaters.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+
+              currentItem = currentItem.toLowerCase();
+              searchParam = searchParam.toLowerCase();
+
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                  }
+              }
+          
+          });
+
+          this.greaters = result;
+        }else{
+        this.greaters= this.tempGreaters
+
+        }
+       
+        // let temp = data;
+        
+       },
     },
     mounted(){
       this.getGreater()

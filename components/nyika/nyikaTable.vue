@@ -62,8 +62,8 @@
                   <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{taberi.name}}</td>
                   <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{taberi.members.length}}</td>
                   <td class="relative whitespace-nowrap border-b flex flex-row gap-x-2 justify-center border-gray-200 py-4 pr-4 pl-3 text-center text-sm font-medium sm:pr-6 lg:pr-8">
-                      <NuxtLink :to="'./'+taberi.id" class="bg-blue-500 text-white p-2 rounded">View</NuxtLink>
-                      <NuxtLink :to="'./tabheri/'+taberi.id" class="bg-yellow-500 text-white p-2 rounded">View</NuxtLink>
+                      <NuxtLink v-if="this.role === 'NYIKA_ADMIN'"  :to="'./'+taberi.id" class="bg-blue-500 text-white p-2 rounded">View</NuxtLink>
+                      <NuxtLink v-else :to="'./tabheri/'+taberi.id" class="bg-yellow-500 text-white p-2 rounded">View</NuxtLink>
                       <button @click="deleteTabheri(taberi.id)" class="bg-red-500 text-white p-1 px-2 rounded">Delete</button> 
                   </td>
                 </tr>
@@ -144,7 +144,8 @@ data(){
     errors:[],
     committe: false,
     tab: true,
-    details: false
+    details: false,
+    role: ''
   }
 },
 methods:{
@@ -364,8 +365,9 @@ console.log("Error:",err.message)
      },
 },
 mounted(){
-  this.getTaberis()
-
+  this.getTaberis();
+  this.role = localStorage.getItem('role'); 
+  // alert(this.scope
 }
 }
 </script>

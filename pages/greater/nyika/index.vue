@@ -54,9 +54,10 @@
                     <td class="whitespace-nowrap border-b border-gray-200 py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">{{nyika.name}}</td>
                     <td class="whitespace-nowrap border-b border-gray-200 px-3 py-4 text-sm text-gray-500 hidden sm:table-cell">{{ nyika.taberis.length }}</td>
                     <td class="relative flex flex-row justify-center whitespace-nowrap border-b border-gray-200 py-4 pr-4 pl-3 text-right text-sm font-medium sm:pr-6 lg:pr-8">
+
+                      <NuxtLink :to="'./'+nyika.id" class="mr-2 hover:text-indigo-900 bg-blue-600 text-white p-2 py-2 rounded">View</NuxtLink>
                       <button @click="deleteNyika(nyika.id)" class="bg-red-500 text-white p-2 py-1 mr-2 rounded">Delete</button> 
 
-                      <NuxtLink :to="'./'+nyika.id" class="text-indigo-600 hover:text-indigo-900 bg-blue-600 text-white p-2 py-2 rounded">View</NuxtLink>
                     </td>
                   </tr>
     

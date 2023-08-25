@@ -67,9 +67,18 @@
   
       <!-- Table -->
       <div class="bg-white border border-gray-300 rounded-md my-4">
-        <div class="flex flex-row justify-between items-region my-2 px-2">
-       <downloadCSV @click="asPDF()"/>
-  <input type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tabheriMembers,searchParam)"/>
+          <div class="flex flex-row justify-between items-region my-2 px-2">
+            <downloadCSV @click="asPDF()"/>
+            <div class="flex flex-row justify-center items-center gap-x-2">
+              <label>Filter by</label>
+              <select v-model="searchGender" type="text" class="rounded-md border p-2 border-gray-400 bg-white" @change="filterTable(members,searchGender)">
+                <option selected disabled value="">Gender</option>
+                <option value="">All</option>
+                <option value="MALE">Male</option>  
+                <option value="FEMALE">Female</option>
+              </select>
+              <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(members,searchParam)"/>
+            </div>
         </div>
       <p v-if="loading">Loading</p>
       <!-- <p>{{ members }}</p> -->
@@ -92,7 +101,7 @@
               </thead>
               <tbody class="bg-white">
                 <tr class="border-t border-gray-200">
-                  <th v-if="tabheriMembers == null || ''" colspan="8" scope="colgroup" class="bg-gray-50 px-4 py-2 text-center h-32 text-sm font-semibold text-gray-900 sm:px-6">No items found!</th>
+                  <th v-if="members == null ||  members.length < 1" colspan="8" scope="colgroup" class="bg-gray-50 px-4 py-2 text-center h-32 text-sm font-semibold text-gray-900 sm:px-6">No items found!</th>
                   <th v-else colspan="7" scope="colgroup" class="bg-gray-50 px-4 py-2 text-left text-sm font-semibold text-gray-900 sm:px-6">All Members</th>
                 </tr>
                 <tr v-for="(member,index) in members" :key="index" class="border-t border-gray-300 hover:bg-gray-100 duration-150">
@@ -167,11 +176,13 @@
   
   <script>
   import axios from 'axios'
+  import downloadCSV from '@/components/shared/downloadCSV.vue';
   // import {searchArray} from '@/plugins/search'
 // import tabheriAddMember from './tabheriAddMember.vue'
   
   export default {
   // components: { tabheriAddMember },
+  components:{downloadCSV},
     props: {
     id: {
       type: String,
@@ -195,18 +206,19 @@
       currentId: '',
       currentMember: '',
       positions: '',
-      currentPosition:'CHAIRMAN',
+      currentPosition:'',
       modalUser: false,
       searchParam: '',
       foundArray:[],
-      addMember:false
+      addMember:false,
+      tempMembers: '',
+      searchGender:'ALL'
     }
   },
   methods:{
     async getNyikas() {
         console.log("Fetching Greater Data....");
         this.loading = true;
-        // const scope = localStorage.getItem('scopeId')
         const URL= `http://localhost:8080/greaters/get{id}?id=${this.id}`;
 
         await axios.get(URL, {
@@ -374,6 +386,7 @@
           }
         }).then((res) => {
           this.members = res.data;
+          this.tempMembers = this.members;
           console.log(this.members);
           console.log("Fetching Members Data Completed...");
         }).catch(error => {
@@ -482,14 +495,32 @@
   }
      }
        },
-       filterTable(arr, searchParams){
-        if(searchParams != ''){
-         this.foundArray = searchArray(arr,searchParams);
-          this.tabheriMembers = this.foundArray;
-          console.log(this.foundArray);
+
+       filterTable(data, searchParam){
+        let result = [];
+        if(searchParam != ""){
+          this.tempMembers.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+
+              currentItem = currentItem.toLowerCase();
+              searchParam = searchParam.toLowerCase();
+
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                  }
+              }
+          
+          });
+
+          this.members = result;
         }else{
-          this.tabheriMembers = this.tabheri.members
+        this.members = this.tempMembers
+
         }
+       
+        // let temp = data;
+        
        },
   },
   mounted(){

@@ -27,6 +27,12 @@
     </div>
   </div>
 <p class="text-md mmedium my-5">Tabular View</p>
+          <div class="flex flex-row justify-between items-region my-2 px-2">
+            <downloadCSV @click="asPDF()"/>
+            <div class="flex flex-row justify-center items-center gap-x-2">
+              <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tempNyikas,searchParam)"/>
+            </div>
+        </div>
             <div class="shadow-sm ring-1 ring-black ring-opacity-5">
               <table class="min-w-full border-separate" style="border-spacing: 0">
                 <thead class="bg-gray-50">
@@ -64,6 +70,7 @@
     
     <script>
     import axios from 'axios'
+    import downloadCSV from '@/components/shared/downloadCSV.vue';
     export default {
     data(){
       return{
@@ -72,7 +79,9 @@
         nyika:"",
         greaterId:"",
         errors:{},
-        errored: false
+        errored: false,
+        searchParam: '',
+        tempNyikas: ''
       }
     },
     methods:{
@@ -92,6 +101,7 @@
             }
           }).then((res) => {
             this.nyikas = res.data;
+            this.tempNyikas = this.nyikas
             // this.loadImages();
             var x= 0;
          
@@ -152,6 +162,32 @@ console.log("Error:",err.message)
 }
    }
      },
+     filterTable(data, searchParam){
+        let result = [];
+        if(searchParam != ""){
+          this.tempNyikas.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+
+              currentItem = currentItem.toLowerCase();
+              searchParam = searchParam.toLowerCase();
+
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                  }
+              }
+          
+          });
+
+          this.nyikas = result;
+        }else{
+        this.nyikas= this.tempNyikas
+
+        }
+       
+        // let temp = data;
+        
+       },
     },
     mounted(){
       this.getNyika()

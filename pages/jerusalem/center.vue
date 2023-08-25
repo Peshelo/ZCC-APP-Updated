@@ -26,6 +26,12 @@
     </div>
   </div>
 <p class="text-md mmedium my-5">Table View</p>
+<div class="flex flex-row justify-between items-region my-2 px-2">
+            <downloadCSV @click="asPDF()"/>
+            <div class="flex flex-row justify-center items-center gap-x-2">
+              <input v-model="searchParam" type="text" placeholder="Search" class="rounded-md border p-2 border-gray-400" @keyup="filterTable(tempCenters,searchParam)"/>
+            </div>
+        </div>
             <div class="shadow-sm ring-1 ring-black ring-opacity-5">
               <table class="min-w-full border-separate" style="border-spacing: 0">
                 <thead class="bg-gray-50">
@@ -121,7 +127,10 @@
     
     <script>
     import axios from 'axios'
+    import downloadCSV from '@/components/shared/downloadCSV.vue';
+
     export default {
+      components : {downloadCSV},
     data(){
       return{
         loading: false,
@@ -132,7 +141,9 @@
         center:"",
         centerId:"",
         errors:{},
-        errored: false
+        errored: false,
+        searchParam: '',
+        tempCenters: ''
       }
     },
     methods:{
@@ -140,9 +151,6 @@
           console.log("Fetching center Data....");
           this.loading = true;
          const URL= "http://localhost:8080/centers";
-          // const token = localStorage.token;
-          // console.log('Token is string: ' + isString(token))
-          // console.log(token);
           await axios.get(URL, {
             headers: {
               'Content-Type': 'application/json',
@@ -160,6 +168,7 @@
             //     console.warn("Property: "+this.properties[x].id)
             //   }
             // this.imgs = this.center.images;
+            this.tempCenters = this.centers;
             console.log(this.centers);
             console.log(typeof (this.centers))
             console.log("Fetching  Center Data Completed...");
@@ -204,17 +213,17 @@
             console.warn(error.code)
             this.error = error.code;
             this.errored = true
-    
+            
           }).finally(() => this.loading = false);
         },
         async addNew(){
          
          this.errors = {};
          if(!this.centerId){
-             this.errors.centerId = "Email is required";
+             this.errors.centerId = "CenterId is required";
          }
          if(!this.center){
-             this.errors.center = "Email is required";
+             this.errors.center = "Center is required";
          }
          if (Object.keys(this.errors).length === 0) {
     // Your code for handling the login form submission
@@ -248,6 +257,62 @@ console.log("Error:",err.message)
 }
    }
      },
+     asPDF(){
+        this.exportTableToCSV(null, 'Center Table.csv');
+      },
+      exportTableToCSV(html, filename) {
+      var csv = [];
+      var rows = document.querySelectorAll("table tr");
+  
+      for(var i = 0; i < rows.length; i++){
+          var row = [], cols = rows[i].querySelectorAll("td, th");
+          for(var j = 0; j < cols.length; j++){
+              row.push(cols[j].innerText);
+          }
+          csv.push(row.join(","));
+      }
+  
+      // download csv file
+      this.downloadCSV(csv.join("\n"), filename);
+  },
+   downloadCSV(csv, filename) {
+             var csvFile;
+      var downloadLink;
+  
+      csvFile = new Blob([csv], {type:"text/csv"});
+      downloadLink = document.createElement("a");
+      downloadLink.download = filename;
+      downloadLink.href = window.URL.createObjectURL(csvFile);
+      downloadLink.style.display = "none";
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+  },
+     filterTable(data, searchParam){
+        let result = [];
+        if(searchParam != ""){
+          this.tempCenters.forEach(item => {
+              let currentItem = JSON.stringify(Object.values(item));
+
+              currentItem = currentItem.toLowerCase();
+              searchParam = searchParam.toLowerCase();
+
+              if(searchParam != "," || "{" || "}"){
+                  if(currentItem.includes(searchParam)){
+                              result.push(item);
+                  }
+              }
+          
+          });
+
+          this.centers = result;
+        }else{
+        this.centers= this.tempCenters
+
+        }
+       
+        // let temp = data;
+        
+       },
     },
     mounted(){
       this.getCenter();
