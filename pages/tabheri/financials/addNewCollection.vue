@@ -101,7 +101,7 @@
         // Your code for handling the form submission
             this.loading = true;
             //Endpoint to add member
-            const URL = 'http://localhost:8080/financials/collections/create-record';
+            const URL = 'http://13.244.64.153:7635/financials/collections/create-record';
         try{
          await axios.post(URL,
          {
@@ -145,7 +145,7 @@
          async getPurpose() {
         console.log("Fetching Purpose Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/purpose/all";
+       const URL= "http://13.244.64.153:7635/purpose/all";
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',

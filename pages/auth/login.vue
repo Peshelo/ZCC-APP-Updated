@@ -84,7 +84,7 @@ export default {
        // Your code for handling the login form submission
        this.loading = true;
        try{
-        await axios.post('http://localhost:8080/auth/login',{
+        await axios.post('http://13.244.64.153:7635/auth/login',{
         email:this.email,
         password :this.password
         },{

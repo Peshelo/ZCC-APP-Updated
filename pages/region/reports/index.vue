@@ -122,7 +122,7 @@ methods:{
   async getCollection(tabheriId,purposeId) {
       console.log("Fetching collection Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/financials/reports/nyika/1/term/"+tabheriId+"/purpose/"+purposeId;
+     const URL= "http://13.244.64.153:7635/financials/reports/nyika/1/term/"+tabheriId+"/purpose/"+purposeId;
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);
@@ -148,7 +148,7 @@ methods:{
     // async getTabheris() {
     //   console.log("Fetching Tabheris Data....");
     //   this.loading = true;
-    //    const URL= "http://localhost:8080/nyikas/get/1";
+    //    const URL= "http://13.244.64.153:7635/nyikas/get/1";
     //   // const token = localStorage.token;
     //   // console.log('Token is string: ' + isString(token))
     //   // console.log(token);
@@ -174,7 +174,7 @@ methods:{
     async getTerm() {
       console.log("Fetching Term Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/term/all";
+     const URL= "http://13.244.64.153:7635/term/all";
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);
@@ -200,7 +200,7 @@ methods:{
     async getPurpose() {
       console.log("Fetching Purpose Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/purpose/all";
+     const URL= "http://13.244.64.153:7635/purpose/all";
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);

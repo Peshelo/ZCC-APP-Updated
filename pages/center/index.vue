@@ -115,7 +115,7 @@
         console.log("Fetching center Data....");
         this.loading = true;
         const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/centers/get${scopeId}`;
+        const URL= `http://13.244.64.153:7635/centers/get${scopeId}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);

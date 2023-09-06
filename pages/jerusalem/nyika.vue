@@ -88,7 +88,7 @@
       async getNyika() {
           console.log("Fetching Nyika Data....");
           this.loading = true;
-         const URL= "http://localhost:8080/nyikas";
+         const URL= "http://13.244.64.153:7635/nyikas";
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -133,7 +133,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://localhost:8080/nyikas/add?greaterId='+ this.greaterId,
+     await axios.post('http://13.244.64.153:7635/nyikas/add?greaterId='+ this.greaterId,
      {
      name:this.nyika,
      },{

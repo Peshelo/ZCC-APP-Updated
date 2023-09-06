@@ -171,7 +171,7 @@ this.committe = false
     // Your code for handling the form submission
         this.loading = true;
         //Endpoint to add member
-        const URL = 'http://localhost:8080/taberis/create?nyikaId='+ this.id;
+        const URL = 'http://13.244.64.153:7635/taberis/create?nyikaId='+ this.id;
     try{
      await axios.post(URL,
      {
@@ -251,7 +251,7 @@ downloadLink.click();
   async getTaberis() {
       console.log("Fetching Tabhera Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/nyikas/get/"+this.id;
+     const URL= "http://13.244.64.153:7635/nyikas/get/"+this.id;
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);
@@ -296,7 +296,7 @@ downloadLink.click();
   // Your code for handling the login form submission
   this.loading = true;
   try{
-   await axios.post('http://localhost:8080/taberis/add?nyikaId='+ this.nyikaId,
+   await axios.post('http://13.244.64.153:7635/taberis/add?nyikaId='+ this.nyikaId,
    {
    name:this.taberi,
    },{
@@ -337,7 +337,7 @@ console.log("Error:",err.message)
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.delete(`http://localhost:8080/taberis/delete?id=${id}`,{
+     await axios.delete(`http://13.244.64.153:7635/taberis/delete?id=${id}`,{
      },{
          headers: {'Content-Type': 'application/json',
          Authorization : 'Bearer ' + localStorage.token,

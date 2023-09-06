@@ -112,7 +112,7 @@
       async getTabheri() {
           console.log("Fetching Tabheri Data....");
           this.loading = true;
-          const URL= `http://localhost:8080/nyikas/get/${localStorage.scopeId}`;
+          const URL= `http://13.244.64.153:7635/nyikas/get/${localStorage.scopeId}`;
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);

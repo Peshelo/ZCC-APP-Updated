@@ -123,7 +123,7 @@
     async getCenter() {
         console.log("Fetching center Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/centers";
+       const URL= "http://13.244.64.153:7635/centers";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -160,7 +160,7 @@
       async getComittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/enums/committee-posts";
+       const URL= "http://13.244.64.153:7635/enums/committee-posts";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -203,7 +203,7 @@
   // this.scopeId = localStorage.getItem('scopeId');
 
   try{
-   await axios.post('http://localhost:8080/centers/create?regionId='+ this.scopeId,
+   await axios.post('http://13.244.64.153:7635/centers/create?regionId='+ this.scopeId,
    {
    name:this.center,
    },{

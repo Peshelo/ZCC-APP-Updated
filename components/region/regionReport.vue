@@ -142,7 +142,7 @@
         console.log("Fetching center Data....");
         this.loading = true;
         const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://localhost:8080/centers/get${scopeId}`;
+        const URL= `http://13.244.64.153:7635/centers/get${scopeId}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -170,7 +170,7 @@
         console.log("Fetching collection Data....");
         this.loading = true;
         // const scope = localStorage.getItem('scopeId')
-       const URL= `http://localhost:8080/financials/reports/nyika/${id}`;
+       const URL= `http://13.244.64.153:7635/financials/reports/nyika/${id}`;
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',
@@ -193,7 +193,7 @@
       async getGreater(id) {
         console.log("Fetching Greater Data....");
         this.loading = true;
-       const URL= `http://localhost:8080/greaters/get{id}?id=${id}`;
+       const URL= `http://13.244.64.153:7635/greaters/get{id}?id=${id}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -226,7 +226,7 @@
       // async getTabheris() {
       //   console.log("Fetching Tabheris Data....");
       //   this.loading = true;
-      //  const URL= "http://localhost:8080/nyikas/get/1";
+      //  const URL= "http://13.244.64.153:7635/nyikas/get/1";
       //   // const token = localStorage.token;
       //   // console.log('Token is string: ' + isString(token))
       //   // console.log(token);
@@ -252,7 +252,7 @@
       async getTerm() {
         console.log("Fetching Term Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/term/all";
+       const URL= "http://13.244.64.153:7635/term/all";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -278,7 +278,7 @@
       async getPurpose() {
         console.log("Fetching Purpose Data....");
         this.loading = true;
-       const URL= "http://localhost:8080/purpose/all";
+       const URL= "http://13.244.64.153:7635/purpose/all";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);

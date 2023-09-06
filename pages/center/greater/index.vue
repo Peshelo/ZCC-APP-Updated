@@ -85,7 +85,7 @@
         console.log("Fetching Greater Data....");
         this.loading = true;
         const scope = localStorage.getItem('scopeId');
-       const URL= `http://localhost:8080/centers/get${scope}`;
+       const URL= `http://13.244.64.153:7635/centers/get${scope}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -126,7 +126,7 @@
   this.loading = true;
   const scope = localStorage.getItem('scopeId');
   try{
-   await axios.post(`http://localhost:8080/greaters/create?centerId=${scope}`,
+   await axios.post(`http://13.244.64.153:7635/greaters/create?centerId=${scope}`,
    {
    name:this.greater,
    },{

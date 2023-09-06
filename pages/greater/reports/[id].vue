@@ -78,7 +78,7 @@ methods:{
   async getCollection() {
       console.log("Fetching collection Data....");
       this.loading = true;
-     const URL= "http://localhost:8080/financials/collections/"+ this.id;
+     const URL= "http://13.244.64.153:7635/financials/collections/"+ this.id;
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);

@@ -82,7 +82,7 @@
       async getCenter() {
           console.log("Fetching center Data....");
           this.loading = true;
-         const URL= "http://localhost:8080/centers/get"+this.$route.params.id;
+         const URL= "http://13.244.64.153:7635/centers/get"+this.$route.params.id;
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -122,7 +122,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://localhost:8080/centers/create?regionId='+ localStorage.scopeId,
+     await axios.post('http://13.244.64.153:7635/centers/create?regionId='+ localStorage.scopeId,
      {
      name:this.center,
      },{

@@ -91,7 +91,7 @@
       async getGreater() {
           console.log("Fetching Greater Data....");
           this.loading = true;
-         const URL= "http://localhost:8080/greaters";
+         const URL= "http://13.244.64.153:7635/greaters";
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -132,7 +132,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://localhost:8080/greaters/add?greaterId='+ this.greaterId,
+     await axios.post('http://13.244.64.153:7635/greaters/add?greaterId='+ this.greaterId,
      {
      name:this.center,
      },{

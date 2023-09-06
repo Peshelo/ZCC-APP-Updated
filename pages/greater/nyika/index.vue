@@ -132,7 +132,7 @@ async deleteNyika(id){
       // Your code for handling the login form submission
       this.loading = true;
       try{
-       await axios.delete(`http://localhost:8080/nyikas/delete?id=${this.id}`,{
+       await axios.delete(`http://13.244.64.153:7635/nyikas/delete?id=${this.id}`,{
        },{
            headers: {'Content-Type': 'application/json',
            Authorization : 'Bearer ' + localStorage.token,
@@ -161,7 +161,7 @@ async deleteNyika(id){
       async getNyika() {
           console.log("Fetching Nyika Data....");
           this.loading = true;
-         const URL= `http://localhost:8080/greaters/get{id}?id=${localStorage.scopeId}`;
+         const URL= `http://13.244.64.153:7635/greaters/get{id}?id=${localStorage.scopeId}`;
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -209,7 +209,7 @@ async deleteNyika(id){
     this.loading = true;
     const scope = localStorage.getItem('scopeId')
     try{
-     await axios.post(`http://localhost:8080/nyikas/create?greaterId=${scope}`,
+     await axios.post(`http://13.244.64.153:7635/nyikas/create?greaterId=${scope}`,
      {
      name:this.nyika,
      financialGroup: this.financialGroup
