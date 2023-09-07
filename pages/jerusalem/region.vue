@@ -72,7 +72,7 @@
       async getRegion() {
           console.log("Fetching Regions Data....");
           this.loading = true;
-         const URL= `http://13.244.64.153:7635/jerusalem/get{id}?id=${localStorage.scopeId}`;
+         const URL= `http://3.10.190.157:7635/jerusalem/get{id}?id=${localStorage.scopeId}`;
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -113,7 +113,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://13.244.64.153:7635/regions/create',{
+     await axios.post('http://3.10.190.157:7635/regions/create',{
      name:this.region,
      },{
          headers: {'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ console.log("Error:",err.message)
       // Your code for handling the login form submission
       this.loading = true;
       try{
-       await axios.delete(`http://13.244.64.153:7635/regions/delete?id=${id}`,{
+       await axios.delete(`http://3.10.190.157:7635/regions/delete?id=${id}`,{
        },{
            headers: {'Content-Type': 'application/json',
            Authorization : 'Bearer ' + localStorage.token,

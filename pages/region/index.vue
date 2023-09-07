@@ -117,7 +117,7 @@
         console.log("Fetching region Data....");
         this.loading = true;
         const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://13.244.64.153:7635/regions/get{id}?id=${scopeId}`;
+        const URL= `http://3.10.190.157:7635/regions/get{id}?id=${scopeId}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);

@@ -72,7 +72,7 @@ methods:{
       console.log("Fetching collection Data....");
       this.loading = true;
       const scope = this.$router.params.id;
-     const URL= `http://13.244.64.153:7635/financials/reports/nyika/${scope}`;
+     const URL= `http://3.10.190.157:7635/financials/reports/nyika/${scope}`;
       // const token = localStorage.token;
       // console.log('Token is string: ' + isString(token))
       // console.log(token);

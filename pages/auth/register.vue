@@ -214,7 +214,7 @@
         // make API call or submit form data here
         try{
           console.log("Sending...")
-        await axios.post('http://13.244.64.153:7635/auth/register',{
+        await axios.post('http://3.10.190.157:7635/auth/register',{
             // await axios.post('http://192.168.100.7/api/v1/auth/register/tenant',{
 
   firstname: this.firstname,

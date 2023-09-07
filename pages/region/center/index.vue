@@ -124,7 +124,7 @@
         console.log("Fetching center Data....");
         this.loading = true;
         const scope = localStorage.getItem('scopeId')
-       const URL= `http://13.244.64.153:7635/regions/get{id}?id=${scope}`;
+       const URL= `http://3.10.190.157:7635/regions/get{id}?id=${scope}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -161,7 +161,7 @@
       async getComittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/enums/committee-posts";
+       const URL= "http://3.10.190.157:7635/enums/committee-posts";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -204,7 +204,7 @@
   this.scopeId = localStorage.getItem('scopeId');
 
   try{
-   await axios.post('http://13.244.64.153:7635/centers/create?regionId='+ this.scopeId,
+   await axios.post('http://3.10.190.157:7635/centers/create?regionId='+ this.scopeId,
    {
    name:this.center,
    },{

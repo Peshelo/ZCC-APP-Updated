@@ -107,7 +107,7 @@
     async getTaberis() {
         console.log("Fetching Tabhera Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/taberis";
+       const URL= "http://3.10.190.157:7635/taberis";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -152,7 +152,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://13.244.64.153:7635/taberis/add?nyikaId='+ this.nyikaId,
+     await axios.post('http://3.10.190.157:7635/taberis/add?nyikaId='+ this.nyikaId,
      {
      name:this.taberi,
      },{

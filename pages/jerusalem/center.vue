@@ -150,7 +150,7 @@
       async getCenter() {
           console.log("Fetching center Data....");
           this.loading = true;
-         const URL= "http://13.244.64.153:7635/centers";
+         const URL= "http://3.10.190.157:7635/centers";
           await axios.get(URL, {
             headers: {
               'Content-Type': 'application/json',
@@ -185,7 +185,7 @@
         async getComittee() {
           console.log("Fetching Committee Data....");
           this.loading = true;
-         const URL= "http://13.244.64.153:7635/enums/committee-posts";
+         const URL= "http://3.10.190.157:7635/enums/committee-posts";
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -229,7 +229,7 @@
     // Your code for handling the login form submission
     this.loading = true;
     try{
-     await axios.post('http://13.244.64.153:7635/centers/add?centerId='+ this.centerId,
+     await axios.post('http://3.10.190.157:7635/centers/add?centerId='+ this.centerId,
      {
      name:this.center,
      },{

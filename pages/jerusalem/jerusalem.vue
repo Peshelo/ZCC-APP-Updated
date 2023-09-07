@@ -208,7 +208,7 @@
     async getRegion() {
         console.log("Fetching Regions Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/jerusalem";
+       const URL= "http://3.10.190.157:7635/jerusalem";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -242,7 +242,7 @@
       async getCenters(id) {
         console.log("Fetching Center Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/regions/get{id}?id="+id;
+       const URL= "http://3.10.190.157:7635/regions/get{id}?id="+id;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -271,7 +271,7 @@
         this.showGreater = true;
         console.log("Fetching Greaters Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/centers/get"+id;
+       const URL= "http://3.10.190.157:7635/centers/get"+id;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -300,7 +300,7 @@
         this.showNyika = true;
         console.log("Fetching Nyikas Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/greaters/get{id}?id="+id;
+       const URL= "http://3.10.190.157:7635/greaters/get{id}?id="+id;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -329,7 +329,7 @@
         this.showTabheri = true;
         console.log("Fetching Tabheris Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/nyikas/get/"+id;
+       const URL= "http://3.10.190.157:7635/nyikas/get/"+id;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -364,7 +364,7 @@
   // Your code for handling the login form submission
   this.loading = true;
   try{
-   await axios.post('http://13.244.64.153:7635/regions/add',{
+   await axios.post('http://3.10.190.157:7635/regions/add',{
    name:this.region,
    },{
        headers: {'Content-Type': 'application/json',

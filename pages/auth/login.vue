@@ -4,11 +4,11 @@
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <!-- <img class="mx-auto h-32 w-auto" src="../../assets/images/zcc.png" alt="Your Company" /> -->
       <h2 class="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">Sign in to your account</h2>
-      <p class="mt-2 text-center text-sm text-gray-600">
+      <!-- <p class="mt-2 text-center text-sm text-gray-600">
         Or
         {{ ' ' }}
         <NuxtLink to="./register" class="font-medium hover:text-indigo-500 underline underline-offset-2">Create an acount</NuxtLink>
-      </p>
+      </p> -->
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -16,14 +16,17 @@
         <p v-if="loading" class="text-center">Loading...</p>
         <form v-else @submit.prevent="handleSubmit()" class="space-y-6">
           <div>
+            <label v-if="errors.email" for="email" class="block text-xs text-red-500">*{{errors.email}}</label>
             <label for="email" class="block text-sm font-medium text-gray-700">Email address</label>
             <div class="mt-1">
-              <input v-model="email" id="email" name="email" type="email" autocomplete="email" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
+              <input v-model="email" id="email" required name="email" type="email" autocomplete="email" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
             </div>
             <!-- <p v-if="this.errors.email" class="text-sm text-red-600 text-left mb-2">*{{this.errors.email}}</p> -->
           </div>
 
           <div>
+            <label v-if="errors.password" for="email" class="block text-xs text-red-500">*{{errors.passwords}}</label>
+
             <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
             <div class="mt-1">
               <input v-model="password" id="password" name="password" type="password" autocomplete="current-password" required="" class="block w-full appearance-none rounded-md border border-gray-300 px-3 py-3 placeholder-gray-400 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm" />
@@ -84,7 +87,7 @@ export default {
        // Your code for handling the login form submission
        this.loading = true;
        try{
-        await axios.post('http://13.244.64.153:7635/auth/login',{
+        await axios.post('http://3.10.190.157:7635/auth/login',{
         email:this.email,
         password :this.password
         },{

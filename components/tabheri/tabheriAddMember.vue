@@ -116,7 +116,7 @@
             this.loading = true;
             //Endpoint to add member
             //Munashe add endpoint to add member. Just use fixed parameters
-            const URL = 'http://13.244.64.153:7635/auth/register';
+            const URL = 'http://3.10.190.157:7635/auth/register';
         try{
          await axios.post(URL,
          {
@@ -163,7 +163,7 @@
          async getSkills() {
           console.log("Fetching Skills Data....");
           this.loading = true;
-         const URL= "http://13.244.64.153:7635/enums/skills";
+         const URL= "http://3.10.190.157:7635/enums/skills";
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);
@@ -188,7 +188,7 @@
         async getCategory() {
           console.log("Fetching Category Data....");
           this.loading = true;
-         const URL= "http://13.244.64.153:7635/enums/category";
+         const URL= "http://3.10.190.157:7635/enums/category";
           // const token = localStorage.token;
           // console.log('Token is string: ' + isString(token))
           // console.log(token);

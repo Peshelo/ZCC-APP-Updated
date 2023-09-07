@@ -220,7 +220,7 @@
         console.log("Fetching Greater Data....");
         this.loading = true;
         const scopeId = localStorage.getItem('scopeId')
-        const URL= `http://13.244.64.153:7635/greaters/get{id}?id=${scopeId}`;
+        const URL= `http://3.10.190.157:7635/greaters/get{id}?id=${scopeId}`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -253,7 +253,7 @@
           this.loading = true;
           //Endpoint to add member
           //Munashe add endpoint to add member. Just use fixed parameters
-          const URL = `http://13.244.64.153:7635/greaters/create/committeeMembers/makeCommittee?userId=${this.currentMember.id}&position=${this.currentPosition}&greaterId=${this.id}`;
+          const URL = `http://3.10.190.157:7635/greaters/create/committeeMembers/makeCommittee?userId=${this.currentMember.id}&position=${this.currentPosition}&greaterId=${this.id}`;
       try{
        await axios.post(URL,
        {
@@ -293,7 +293,7 @@
       // Your code for handling the form submission
           this.loading = true;
           const scope = localStorage.getItem('scopeId');
-          const URL = `http://13.244.64.153:7635/admin/create?UserId=${memberId}&scopeId=${scope}&scope=NYIKA`;
+          const URL = `http://3.10.190.157:7635/admin/create?UserId=${memberId}&scopeId=${scope}&scope=NYIKA`;
       try{
        await axios.post(URL,
        {
@@ -378,7 +378,7 @@
     async getMembers() {
         console.log("Fetching Members Data....");
         this.loading = true;
-        const URL= `http://13.244.64.153:7635/greaters/members/${this.id}`;
+        const URL= `http://3.10.190.157:7635/greaters/members/${this.id}`;
         await axios.get(URL, {
           headers: {
             'Content-Type': 'application/json',
@@ -403,7 +403,7 @@
       async getCommittee() {
         console.log("Fetching Committee Data....");
         this.loading = true;
-        const URL= `http://13.244.64.153:7635/taberis/${this.id}/members`;
+        const URL= `http://3.10.190.157:7635/taberis/${this.id}/members`;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -436,7 +436,7 @@
       async getPositions() {
         console.log("Fetching Position Data....");
         this.loading = true;
-        const URL= "http://13.244.64.153:7635/enums/committee-posts";
+        const URL= "http://3.10.190.157:7635/enums/committee-posts";
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -472,7 +472,7 @@
       // Your code for handling the login form submission
       this.loading = true;
       try{
-       await axios.delete(`http://13.244.64.153:7635/members/delete/${this.id}`,{
+       await axios.delete(`http://3.10.190.157:7635/members/delete/${this.id}`,{
        },{
            headers: {'Content-Type': 'application/json',
            Authorization : 'Bearer ' + localStorage.token,

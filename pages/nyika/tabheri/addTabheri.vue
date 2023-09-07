@@ -46,7 +46,7 @@
       // Your code for handling the form submission
           this.loading = true;
           //Endpoint to add member
-          const URL = 'http://13.244.64.153:7635/taberis/add?nyikaId='+ this.nyikaId;
+          const URL = 'http://3.10.190.157:7635/taberis/add?nyikaId='+ this.nyikaId;
       try{
        await axios.post(URL,
        {

@@ -114,7 +114,7 @@ downloadLink.click();
     async getNyika() {
         console.log("Fetching Nyika Data....");
         this.loading = true;
-       const URL= "http://13.244.64.153:7635/greaters/get{id}?id="+this.$route.params.id;
+       const URL= "http://3.10.190.157:7635/greaters/get{id}?id="+this.$route.params.id;
         // const token = localStorage.token;
         // console.log('Token is string: ' + isString(token))
         // console.log(token);
@@ -158,7 +158,7 @@ downloadLink.click();
   // Your code for handling the login form submission
   this.loading = true;
   try{
-   await axios.post('http://13.244.64.153:7635/nyikas/create?greaterId='+ this.$route.params.id,
+   await axios.post('http://3.10.190.157:7635/nyikas/create?greaterId='+ this.$route.params.id,
    {
    name:this.nyika,
    },{
